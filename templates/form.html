@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>예배 PPT 생성기</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f7f9fc;
+      margin: 0;
+      padding: 30px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 12px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #songs-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .song-block {
+      flex: 1 1 calc(50% - 16px);
+      box-sizing: border-box;
+      margin-top: 10px;
+        padding: 8px;
+    }
+
+    .song-lyric {
+      display: block;
+      height: 160px;
+    }
+
+    @media (max-width: 768px) {
+      .song-block {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>목요예배 PPT 생성기</h1>
+    <form method="POST">
+      <label>파일 이름 (확장자 제외)</label>
+      <input type="text" name="filename" placeholder="CUSCM 목요예배" required />
+
+      <div id="songs-container">
+        <div class="song-block">
+          <label>찬양 제목</label>
+          <input type="text" name="song_titles[]" required />
+          <label>찬양 가사</label>
+          <textarea class="song-lyric" name="song_lyrics[]" placeholder="두 줄이 한 슬라이드에 들어갑니다. 엔터로 줄 구분해주세요" required></textarea>
+        </div>
+      </div>
+      <button type="button" onclick="addSongBlock()">➕ 찬양 추가</button>
+
+      <label>대표 기도자</label>
+      <input type="text" name="대표 기도자" placeholder="김대표 (정국 23)" required />
+
+      <label>성경 본문 (예: 창세기 18장 22~33절)</label>
+      <input type="text" name="성경 본문" required />
+
+      <label>성경 구절 (각 구절을 줄 단위로 입력하세요)</label>
+      <textarea name="성경 구절" placeholder="예: 창세기 18:22 ... (엔터) 창세기 18:23 ..." required></textarea>
+
+      <label>설교 제목</label>
+      <input type="text" name="설교 제목"  required />
+
+      <label>설교자</label>
+      <input type="text" name="설교자" placeholder="김영환 (교육 93)" required />
+
+      <label>헌금 기도자</label>
+      <input type="text" name="헌금 기도자" placeholder="김헌금 (경제 30)" required />
+
+      <label>환영</label>
+      <input type="text" name="환영 인도자" placeholder="이보라 (영교 22)" required />
+
+      <label>광고자</label>
+      <input type="text" name="광고자" placeholder="양희목 (소프트 22)" required />
+
+      <label>광고 내용</label>
+      <textarea name="광고 내용" placeholder="광고 내용을 입력하세요" required></textarea>
+
+      <button type="submit">📥 PPT 생성하기</button>
+    </form>
+  </div>
+
+  <script>
+    function addSongBlock() {
+      const container = document.getElementById('songs-container');
+      const block = document.createElement('div');
+      block.classList.add('song-block');
+      block.innerHTML = `
+        <label>찬양 제목 container.count </label>
+        <input type="text" name="song_titles[]" required />
+        <label>찬양 가사</label>
+        <textarea class="song-lyric" name="song_lyrics[]" placeholder="두 줄이 한 슬라이드에 들어갑니다. 엔터로 줄 구분해주세요" required></textarea>
+      `;
+      container.appendChild(block);
+    }
+  </script>
+</body>
+</html>
